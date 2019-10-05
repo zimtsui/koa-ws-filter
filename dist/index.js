@@ -31,20 +31,20 @@ class KoaWsFilter {
         });
     }
     filter() {
-        return (ctx, next) => {
+        return (ctx, next) => __awaiter(this, void 0, void 0, function* () {
             if (this.isWebSocket(ctx)) {
                 ctx.upgrade = () => {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 };
                 const f = koa_compose_1.default(this.wsMWs);
-                f(ctx, next);
+                yield f(ctx, next);
             }
             else {
                 const f = koa_compose_1.default(this.httpMWs);
-                f(ctx, next);
+                yield f(ctx, next);
             }
-        };
+        });
     }
     http(f) {
         this.httpMWs.push(f);

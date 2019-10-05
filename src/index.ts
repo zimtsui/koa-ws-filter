@@ -32,7 +32,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
 
     public filter(
     ) {
-        return (
+        return async (
             ctx: Context,
             next: () => Promise<any>,
         ) => {
@@ -42,10 +42,10 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
                     return this.makeWebSocket(ctx);
                 }
                 const f = koaCompose(this.wsMWs);
-                f(ctx, next);
+                await f(ctx, next);
             } else {
                 const f = koaCompose(this.httpMWs);
-                f(ctx, next);
+                await f(ctx, next);
             }
         }
     }
