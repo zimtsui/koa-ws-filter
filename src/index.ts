@@ -36,12 +36,14 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
             next: () => Promise<any>,
         ) => {
             if (this.isWebSocket(ctx)) {
+                type Upgrade = () => Promise<WebSocket>;
+                type UpgradeContext = Context & { upgrade: Upgrade; }
                 ctx.upgrade = () => {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 }
                 const f = koaCompose(this.wsMWs);
-                f(ctx, next);
+                f(<UpgradeContext>ctx, next);
             } else {
                 const f = koaCompose(this.httpMWs);
                 f(ctx, next);

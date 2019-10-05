@@ -370,7 +370,7 @@
         "signature": "b014e3054898a94dda8aff6a37db4582d5936f09af89876f0fc0e3d36888c20c"
       },
       "./src/index.ts": {
-        "version": "5a3ff7937374f220e49565f9fd20a1befc3491cb51057c356053ea0ab929b793",
+        "version": "982f971e8b343d3fbec9a04b658f4100b9b704e4e9719ff3a61ff4381406978e",
         "signature": "fde6e1772729cc4ee74d63f6caaa124e6befc6322677b5fe1f328d64b1d9c2e0"
       },
       "./node_modules/@types/bluebird/index.d.ts": {
@@ -1580,13 +1580,13 @@
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/koa/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
-      "./src/index.ts",
       "./node_modules/@types/bluebird/index.d.ts",
       "./node_modules/@types/chai/index.d.ts",
       "./node_modules/@types/chai-as-promised/index.d.ts",
       "./node_modules/@types/minimatch/index.d.ts",
       "./node_modules/@types/glob/index.d.ts",
-      "./node_modules/@types/koa-router/index.d.ts"
+      "./node_modules/@types/koa-router/index.d.ts",
+      "./src/index.ts"
     ]
   },
   "version": "3.6.3"
