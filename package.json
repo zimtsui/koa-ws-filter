@@ -1,0 +1,32 @@
+{
+    "name": "koa-ws-filter",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc -b"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zimtsui/koa-ws-filter.git"
+    },
+    "author": "Zim",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zimtsui/koa-ws-filter/issues"
+    },
+    "homepage": "https://github.com/zimtsui/koa-ws-filter#readme",
+    "devDependencies": {
+        "@types/node": "^12.7.11",
+        "typescript": "^3.6.3"
+    },
+    "dependencies": {
+        "@types/koa-compose": "^3.2.4",
+        "@types/ws": "^6.0.3",
+        "koa": "^2.8.2",
+        "koa-compose": "^4.1.0",
+        "ws": "^7.1.2"
+    }
+}
