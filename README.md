@@ -33,5 +33,5 @@ koa.listen(3000);
 
 the principle and usage are the same as [koa-router](https://github.com/ZijianHe/koa-router), except that:
 
-- koa-router filters path of request.
-- koa-ws-filter filters protocol of request.
+- koa-router filters requests by path.
+- koa-ws-filter filters requests by protocol.
