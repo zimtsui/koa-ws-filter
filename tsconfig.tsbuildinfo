@@ -370,8 +370,8 @@
         "signature": "b014e3054898a94dda8aff6a37db4582d5936f09af89876f0fc0e3d36888c20c"
       },
       "./src/index.ts": {
-        "version": "982f971e8b343d3fbec9a04b658f4100b9b704e4e9719ff3a61ff4381406978e",
-        "signature": "fde6e1772729cc4ee74d63f6caaa124e6befc6322677b5fe1f328d64b1d9c2e0"
+        "version": "0e361ef78490b503194bfc4c07303682c878dfbccb4f4190d511d1464c4c1d09",
+        "signature": "ec83b810a67b73b7f7543bb5f41604fe5113b15a85acf783374d4e05572b9781"
       },
       "./node_modules/@types/bluebird/index.d.ts": {
         "version": "3c10804e3bd90aa404eefbc300c362b0ebbd23b34eb03ae592717ac111889f34",
