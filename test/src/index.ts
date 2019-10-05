@@ -7,22 +7,26 @@ import { once } from 'events';
 import Bluebird from 'bluebird';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import Router from 'koa-router';
 chai.use(chaiAsPromised);
 const { assert } = chai;
 
 test.serial('1', async t => {
     const koa = new Koa();
     const filter = new KoaWsFilter();
+    const router = new Router();
 
-    filter.http(async (ctx, next) => {
+    router.get('/', async (ctx, next) => {
         ctx.status = 404;
         await next();
     });
 
-    filter.http(async (ctx, next) => {
+    router.get('/', async (ctx, next) => {
         ctx.body = '404 NOT FOUND';
         await next();
-    })
+    });
+
+    filter.http(router.routes());
 
     filter.ws(async (ctx, next) => {
         const ws: WebSocket = await ctx.upgrade();

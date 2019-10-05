@@ -1,11 +1,18 @@
 import WebSocket from 'ws';
 import koaCompose from 'koa-compose';
-import { Context, Middleware } from 'koa';
+import {
+    Middleware,
+    Context,
+    // ParameterizedContext,
+    DefaultContext,
+    DefaultState,
+    // BaseContext,
+} from 'koa';
 
-class KoaWsFilter {
+class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     public wsServer = new WebSocket.Server({ noServer: true });
-    private httpMWs: Middleware[] = [];
-    private wsMWs: Middleware[] = [];
+    private httpMWs: Middleware<any, any>[] = [];
+    private wsMWs: Middleware<any, any>[] = [];
 
     private isWebSocket(ctx: Context): boolean {
         return ctx.req.headers.upgrade === 'websocket';
@@ -22,8 +29,12 @@ class KoaWsFilter {
         });
     }
 
-    public filter(): Middleware {
-        return (ctx, next) => {
+    public filter(
+    ) {
+        return (
+            ctx: Context,
+            next: () => Promise<any>,
+        ) => {
             if (this.isWebSocket(ctx)) {
                 ctx.upgrade = () => {
                     ctx.respond = false;
@@ -38,12 +49,16 @@ class KoaWsFilter {
         }
     }
 
-    public http(f: Middleware): this {
+    public http<NewStateT = {}, NewCustomT = {}>(
+        f: Middleware<StateT & NewStateT, CustomT & NewCustomT>
+    ): this {
         this.httpMWs.push(f);
         return this;
     }
 
-    public ws(f: Middleware): this {
+    public ws<NewStateT = {}, NewCustomT = {}>(
+        f: Middleware<StateT & NewStateT, CustomT & NewCustomT>
+    ): this {
         this.wsMWs.push(f);
         return this;
     }

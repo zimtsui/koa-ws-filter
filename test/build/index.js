@@ -21,19 +21,22 @@ const events_1 = require("events");
 const bluebird_1 = __importDefault(require("bluebird"));
 const chai_1 = __importDefault(require("chai"));
 const chai_as_promised_1 = __importDefault(require("chai-as-promised"));
+const koa_router_1 = __importDefault(require("koa-router"));
 chai_1.default.use(chai_as_promised_1.default);
 const { assert } = chai_1.default;
 ava_1.default.serial('1', (t) => __awaiter(void 0, void 0, void 0, function* () {
     const koa = new koa_1.default();
     const filter = new __1.default();
-    filter.http((ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const router = new koa_router_1.default();
+    router.get('/', (ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
         ctx.status = 404;
         yield next();
     }));
-    filter.http((ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
+    router.get('/', (ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
         ctx.body = '404 NOT FOUND';
         yield next();
     }));
+    filter.http(router.routes());
     filter.ws((ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
         const ws = yield ctx.upgrade();
         yield new Promise(resolve => ws.send('hello', resolve));

@@ -362,16 +362,16 @@
         "signature": "97fd9fd06a67deac133ddeac0b4a266db5eede2e40ec6ad67b31b0b862559643"
       },
       "./node_modules/@types/koa/index.d.ts": {
-        "version": "c864c472a82af77d4481a8d2af36bb33234b09183b03fb41fe84bcd5e8c240a2",
-        "signature": "c864c472a82af77d4481a8d2af36bb33234b09183b03fb41fe84bcd5e8c240a2"
+        "version": "ecaceba5c9239092c19507729af631f53a0f570e0f74d882676365c0c14cf353",
+        "signature": "ecaceba5c9239092c19507729af631f53a0f570e0f74d882676365c0c14cf353"
       },
       "./node_modules/@types/koa-compose/index.d.ts": {
         "version": "b014e3054898a94dda8aff6a37db4582d5936f09af89876f0fc0e3d36888c20c",
         "signature": "b014e3054898a94dda8aff6a37db4582d5936f09af89876f0fc0e3d36888c20c"
       },
       "./src/index.ts": {
-        "version": "1027afc786a622a751ac0e9d31413724dc68ff30e5e1a291b3d4861e31d17530",
-        "signature": "306eb47b5a9d0d322010571b5fd0f90748fd18677495210ee09ed94dfd35301a"
+        "version": "5a3ff7937374f220e49565f9fd20a1befc3491cb51057c356053ea0ab929b793",
+        "signature": "fde6e1772729cc4ee74d63f6caaa124e6befc6322677b5fe1f328d64b1d9c2e0"
       },
       "./node_modules/@types/bluebird/index.d.ts": {
         "version": "3c10804e3bd90aa404eefbc300c362b0ebbd23b34eb03ae592717ac111889f34",
@@ -392,6 +392,10 @@
       "./node_modules/@types/glob/index.d.ts": {
         "version": "d852d6282c8dc8156d26d6bda83ab4bde51fee05ba2fe0ecdc165ddda009d3ee",
         "signature": "d852d6282c8dc8156d26d6bda83ab4bde51fee05ba2fe0ecdc165ddda009d3ee"
+      },
+      "./node_modules/@types/koa-router/index.d.ts": {
+        "version": "7afda1e28689df9319130fd07f59c496061f636bee4bead58d6993917682933c",
+        "signature": "7afda1e28689df9319130fd07f59c496061f636bee4bead58d6993917682933c"
       }
     },
     "options": {
@@ -943,6 +947,11 @@
         "./node_modules/@types/node/ts3.2/index.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/koa-router/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -1445,8 +1454,8 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./src/index.ts": [
-        "./node_modules/@types/ws/index.d.ts",
-        "./node_modules/@types/koa/index.d.ts"
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/@types/ws/index.d.ts"
       ],
       "./node_modules/@types/bluebird/index.d.ts": [
         "./node_modules/@types/node/util.d.ts",
@@ -1469,6 +1478,11 @@
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/minimatch/index.d.ts",
         "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/koa-router/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ]
@@ -1566,12 +1580,13 @@
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/koa/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
+      "./src/index.ts",
       "./node_modules/@types/bluebird/index.d.ts",
       "./node_modules/@types/chai/index.d.ts",
       "./node_modules/@types/chai-as-promised/index.d.ts",
       "./node_modules/@types/minimatch/index.d.ts",
       "./node_modules/@types/glob/index.d.ts",
-      "./src/index.ts"
+      "./node_modules/@types/koa-router/index.d.ts"
     ]
   },
   "version": "3.6.3"
