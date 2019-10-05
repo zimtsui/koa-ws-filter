@@ -33,7 +33,10 @@ class KoaWsFilter {
     filter() {
         return (ctx, next) => {
             if (this.isWebSocket(ctx)) {
-                ctx.ws = this.makeWebSocket(ctx);
+                ctx.upgrade = () => {
+                    ctx.respond = false;
+                    return this.makeWebSocket(ctx);
+                };
                 const f = koa_compose_1.default(this.wsMWs);
                 f(ctx, next);
             }

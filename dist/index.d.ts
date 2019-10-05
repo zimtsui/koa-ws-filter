@@ -1,6 +1,7 @@
+import WebSocket from 'ws';
 import { Middleware } from 'koa';
 declare class KoaWsFilter {
-    private wsServer;
+    wsServer: WebSocket.Server;
     private httpMWs;
     private wsMWs;
     private isWebSocket;

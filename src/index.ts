@@ -3,7 +3,7 @@ import koaCompose from 'koa-compose';
 import { Context, Middleware } from 'koa';
 
 class KoaWsFilter {
-    private wsServer = new WebSocket.Server({ noServer: true });
+    public wsServer = new WebSocket.Server({ noServer: true });
     private httpMWs: Middleware[] = [];
     private wsMWs: Middleware[] = [];
 
@@ -25,7 +25,10 @@ class KoaWsFilter {
     public filter(): Middleware {
         return (ctx, next) => {
             if (this.isWebSocket(ctx)) {
-                ctx.ws = this.makeWebSocket(ctx);
+                ctx.upgrade = () => {
+                    ctx.respond = false;
+                    return this.makeWebSocket(ctx);
+                }
                 const f = koaCompose(this.wsMWs);
                 f(ctx, next);
             } else {

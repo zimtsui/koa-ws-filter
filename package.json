@@ -5,7 +5,7 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "tsc -b ./test/ && ava",
         "build": "tsc -b"
     },
     "repository": {
@@ -19,7 +19,15 @@
     },
     "homepage": "https://github.com/zimtsui/koa-ws-filter#readme",
     "devDependencies": {
+        "@types/bluebird": "^3.5.27",
+        "@types/chai": "^4.2.3",
+        "@types/chai-as-promised": "^7.1.2",
         "@types/node": "^12.7.11",
+        "ava": "^2.4.0",
+        "axios": "^0.19.0",
+        "bluebird": "^3.7.0",
+        "chai": "^4.2.0",
+        "chai-as-promised": "^7.1.1",
         "typescript": "^3.6.3"
     },
     "dependencies": {
@@ -28,5 +36,9 @@
         "koa": "^2.8.2",
         "koa-compose": "^4.1.0",
         "ws": "^7.1.2"
+    },
+    "ava": {
+        "failWithoutAssertions": false,
+        "verbose": true
     }
 }
