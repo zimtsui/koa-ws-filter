@@ -1,5 +1,7 @@
 import WebSocket from 'ws';
 import koaCompose from 'koa-compose';
+import { once } from 'events';
+import Bluebird from 'bluebird';
 import {
     Middleware,
     Context,
@@ -11,9 +13,21 @@ type Upgrade = () => Promise<WebSocket>;
 type UpgradeCustomT = Context & { upgrade: Upgrade; }
 
 class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
-    public wsServer = new WebSocket.Server({ noServer: true });
+    public wsServer = new WebSocket.Server({
+        noServer: true,
+        clientTracking: true,
+    });
     private httpMWs: Middleware<any, any>[] = [];
     private wsMWs: Middleware<any, any>[] = [];
+
+    public async close() {
+        await Bluebird.all(
+            [...this.wsServer.clients].map(client => {
+                client.close();
+                return once(client, 'close');
+            })
+        );
+    }
 
     private isWebSocket(ctx: Context): boolean {
         return ctx.req.headers.upgrade === 'websocket';

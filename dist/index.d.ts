@@ -8,6 +8,7 @@ declare class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     wsServer: WebSocket.Server;
     private httpMWs;
     private wsMWs;
+    close(): Promise<void>;
     private isWebSocket;
     private makeWebSocket;
     filter(): (ctx: Context, next: () => Promise<any>) => Promise<void>;

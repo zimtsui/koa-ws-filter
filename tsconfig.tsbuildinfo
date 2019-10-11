@@ -369,13 +369,13 @@
         "version": "b014e3054898a94dda8aff6a37db4582d5936f09af89876f0fc0e3d36888c20c",
         "signature": "b014e3054898a94dda8aff6a37db4582d5936f09af89876f0fc0e3d36888c20c"
       },
-      "./src/index.ts": {
-        "version": "7dd6fd381b39413adc7026b3ee0cd7f1fa0a4d0bf0d5fbca8f6d10333e3080c3",
-        "signature": "b6ea9837421ca321524fd62c4dc9882e29b6db5f25f73acc2f3d6dab5c48eb9c"
-      },
       "./node_modules/@types/bluebird/index.d.ts": {
         "version": "3c10804e3bd90aa404eefbc300c362b0ebbd23b34eb03ae592717ac111889f34",
         "signature": "3c10804e3bd90aa404eefbc300c362b0ebbd23b34eb03ae592717ac111889f34"
+      },
+      "./src/index.ts": {
+        "version": "c3db8feaf84902ce7a1a644cbbf9658e8f3b14e82a717f97c156a7bd77c132d7",
+        "signature": "7ccd6f2f53dccb25479c02e2d781a3d0c59a03ea8ba29ab696b31e112ff22253"
       },
       "./node_modules/@types/chai/index.d.ts": {
         "version": "0a534de2e8e1b76641c091f58fda5b8955f0e3b9df67ceae097d94dfe95c5f67",
@@ -917,14 +917,16 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./src/index.ts": [
-        "./node_modules/@types/ws/index.d.ts",
-        "./node_modules/@types/koa-compose/index.d.ts",
-        "./node_modules/@types/koa/index.d.ts",
+      "./node_modules/@types/bluebird/index.d.ts": [
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./node_modules/@types/bluebird/index.d.ts": [
+      "./src/index.ts": [
+        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/koa-compose/index.d.ts",
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/bluebird/index.d.ts",
+        "./node_modules/@types/koa/index.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -1453,13 +1455,13 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./src/index.ts": [
-        "./node_modules/@types/koa/index.d.ts",
-        "./node_modules/@types/ws/index.d.ts"
-      ],
       "./node_modules/@types/bluebird/index.d.ts": [
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/index.ts": [
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/@types/ws/index.d.ts"
       ],
       "./node_modules/@types/chai/index.d.ts": [
         "./node_modules/@types/node/util.d.ts",
@@ -1580,13 +1582,13 @@
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/koa/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
-      "./src/index.ts",
       "./node_modules/@types/bluebird/index.d.ts",
       "./node_modules/@types/chai/index.d.ts",
       "./node_modules/@types/chai-as-promised/index.d.ts",
       "./node_modules/@types/minimatch/index.d.ts",
       "./node_modules/@types/glob/index.d.ts",
-      "./node_modules/@types/koa-router/index.d.ts"
+      "./node_modules/@types/koa-router/index.d.ts",
+      "./src/index.ts"
     ]
   },
   "version": "3.6.3"

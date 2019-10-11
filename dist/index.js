@@ -14,11 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ws_1 = __importDefault(require("ws"));
 const koa_compose_1 = __importDefault(require("koa-compose"));
+const events_1 = require("events");
+const bluebird_1 = __importDefault(require("bluebird"));
 class KoaWsFilter {
     constructor() {
-        this.wsServer = new ws_1.default.Server({ noServer: true });
+        this.wsServer = new ws_1.default.Server({
+            noServer: true,
+            clientTracking: true,
+        });
         this.httpMWs = [];
         this.wsMWs = [];
+    }
+    close() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield bluebird_1.default.all([...this.wsServer.clients].map(client => {
+                client.close();
+                return events_1.once(client, 'close');
+            }));
+        });
     }
     isWebSocket(ctx) {
         return ctx.req.headers.upgrade === 'websocket';
