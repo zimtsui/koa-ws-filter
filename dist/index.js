@@ -25,10 +25,10 @@ class KoaWsFilter {
         this.httpMWs = [];
         this.wsMWs = [];
     }
-    close() {
+    close(code, reason) {
         return __awaiter(this, void 0, void 0, function* () {
             yield bluebird_1.default.all([...this.wsServer.clients].map(client => {
-                client.close();
+                client.close(code, reason);
                 return events_1.once(client, 'close');
             }));
         });

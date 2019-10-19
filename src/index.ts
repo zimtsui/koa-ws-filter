@@ -20,10 +20,10 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     private httpMWs: Middleware<any, any>[] = [];
     private wsMWs: Middleware<any, any>[] = [];
 
-    public async close() {
+    public async close(code?: number, reason?: string) {
         await Bluebird.all(
             [...this.wsServer.clients].map(client => {
-                client.close();
+                client.close(code, reason);
                 return once(client, 'close');
             })
         );

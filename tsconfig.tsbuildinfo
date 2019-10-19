@@ -374,8 +374,8 @@
         "signature": "3c10804e3bd90aa404eefbc300c362b0ebbd23b34eb03ae592717ac111889f34"
       },
       "./src/index.ts": {
-        "version": "c3db8feaf84902ce7a1a644cbbf9658e8f3b14e82a717f97c156a7bd77c132d7",
-        "signature": "7ccd6f2f53dccb25479c02e2d781a3d0c59a03ea8ba29ab696b31e112ff22253"
+        "version": "f646642fd73cf3867a925673fae9a7f3d3ebfc3075410d8aa032a3039cad9fb3",
+        "signature": "536b58652b59ae3d6cf2c8ba7d181a49e66f8078b27ebceb73ae0150d2fe0c8b"
       },
       "./node_modules/@types/chai/index.d.ts": {
         "version": "0a534de2e8e1b76641c091f58fda5b8955f0e3b9df67ceae097d94dfe95c5f67",
