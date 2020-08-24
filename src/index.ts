@@ -1,7 +1,6 @@
 import WebSocket from 'ws';
 import koaCompose from 'koa-compose';
 import { once } from 'events';
-import Bluebird from 'bluebird';
 import {
     Middleware,
     Context,
@@ -21,7 +20,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     private wsMWs: Middleware<any, any>[] = [];
 
     public async close(code?: number, reason?: string) {
-        await Bluebird.all(
+        await Promise.all(
             [...this.wsServer.clients].map(client => {
                 client.close(code, reason);
                 return once(client, 'close');
@@ -82,4 +81,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     }
 }
 
-export default KoaWsFilter;
+export {
+    KoaWsFilter as default,
+    KoaWsFilter,
+};

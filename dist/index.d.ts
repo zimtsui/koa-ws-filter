@@ -15,4 +15,4 @@ declare class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     http<NewStateT = {}, NewCustomT = {}>(f: Middleware<StateT & NewStateT, CustomT & NewCustomT>): this;
     ws<NewStateT = {}, NewCustomT = {}>(f: Middleware<StateT & NewStateT, CustomT & NewCustomT & UpgradeCustomT>): this;
 }
-export default KoaWsFilter;
+export { KoaWsFilter as default, KoaWsFilter, };

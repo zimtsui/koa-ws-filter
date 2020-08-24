@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import KoaWsFilter from '../../';
+import KoaWsFilter from '../../dist/index';
 import WebSocket from 'ws';
 import test from 'ava';
 import axios from 'axios';
@@ -50,5 +50,5 @@ test.serial('1', async t => {
         once(client, 'message'),
         once(client, 'close'),
     ]);
-    assert.strictEqual(msg[0], 'hello');
+    assert.strictEqual(msg[0].data, 'hello');
 });
