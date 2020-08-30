@@ -24,7 +24,7 @@ test.serial('1', async (t) => {
     });
     filter.http(router.routes());
     filter.ws(async (ctx, next) => {
-        const ws = await ctx.upgrade();
+        const ws = await ctx.state.upgrade();
         await new Promise(resolve => ws.send('hello', resolve));
         ws.close();
         await next();

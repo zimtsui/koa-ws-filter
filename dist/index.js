@@ -27,7 +27,7 @@ class KoaWsFilter {
     filter() {
         return async (ctx, next) => {
             if (this.isWebSocket(ctx)) {
-                ctx.upgrade = () => {
+                ctx.state.upgrade = () => {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 };

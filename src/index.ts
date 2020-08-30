@@ -50,7 +50,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
             next: () => Promise<any>,
         ) => {
             if (this.isWebSocket(ctx)) {
-                ctx.upgrade = () => {
+                ctx.state.upgrade = () => {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 }

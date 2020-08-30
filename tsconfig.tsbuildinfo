@@ -221,11 +221,6 @@
         "signature": "61215c1a376bbe8f51cab4cc4ddbf3746387015113c37a84d981d4738c21b878",
         "affectsGlobalScope": false
       },
-      "./node_modules/@types/events/index.d.ts": {
-        "version": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "signature": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "affectsGlobalScope": false
-      },
       "./node_modules/@types/node/child_process.d.ts": {
         "version": "fbf717914b6e7d87d969b13c646b5d15dca61c9b89ea48e97a1513809445b003",
         "signature": "fbf717914b6e7d87d969b13c646b5d15dca61c9b89ea48e97a1513809445b003",
@@ -497,7 +492,7 @@
         "affectsGlobalScope": false
       },
       "./src/index.ts": {
-        "version": "87b91ceffe9721a3450072d4acbf73a884c3f181c2b929f81871a5dc709c886c",
+        "version": "bcb8ce97a1faae92359f89566ac1619a2e32b8d2fa0f28e49b5f3969e275efce",
         "signature": "3b3bdf1af9a608401323ee0964f87a936373462198af6a3020fe53a1d6f8fc18",
         "affectsGlobalScope": false
       },
@@ -516,19 +511,29 @@
         "signature": "369bd3555f45384b3db37bf94c9840d7b1fa79a6691dcba60b3f0e182f8a4680",
         "affectsGlobalScope": true
       },
+      "./node_modules/@types/color-name/index.d.ts": {
+        "version": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e",
+        "signature": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e",
+        "affectsGlobalScope": false
+      },
       "./node_modules/@types/minimatch/index.d.ts": {
         "version": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
         "signature": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/glob/index.d.ts": {
-        "version": "d852d6282c8dc8156d26d6bda83ab4bde51fee05ba2fe0ecdc165ddda009d3ee",
-        "signature": "d852d6282c8dc8156d26d6bda83ab4bde51fee05ba2fe0ecdc165ddda009d3ee",
+        "version": "393137c76bd922ba70a2f8bf1ade4f59a16171a02fb25918c168d48875b0cfb0",
+        "signature": "393137c76bd922ba70a2f8bf1ade4f59a16171a02fb25918c168d48875b0cfb0",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/koa-router/index.d.ts": {
         "version": "7afda1e28689df9319130fd07f59c496061f636bee4bead58d6993917682933c",
         "signature": "7afda1e28689df9319130fd07f59c496061f636bee4bead58d6993917682933c",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/normalize-package-data/index.d.ts": {
+        "version": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
+        "signature": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
         "affectsGlobalScope": false
       }
     },
@@ -576,6 +581,10 @@
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
       ],
+      "./node_modules/@types/color-name/index.d.ts": [
+        "./node_modules/@types/node/ts3.2/util.d.ts",
+        "./node_modules/@types/node/util.d.ts"
+      ],
       "./node_modules/@types/connect/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/ts3.2/index.d.ts",
@@ -588,10 +597,6 @@
         "./node_modules/@types/keygrip/index.d.ts",
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/ts3.2/index.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts",
-        "./node_modules/@types/node/util.d.ts"
-      ],
-      "./node_modules/@types/events/index.d.ts": [
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
       ],
@@ -922,6 +927,10 @@
       ],
       "./node_modules/@types/node/zlib.d.ts": [
         "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts",
+        "./node_modules/@types/node/util.d.ts"
+      ],
+      "./node_modules/@types/normalize-package-data/index.d.ts": [
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
       ],
@@ -1141,6 +1150,10 @@
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
       ],
+      "./node_modules/@types/color-name/index.d.ts": [
+        "./node_modules/@types/node/ts3.2/util.d.ts",
+        "./node_modules/@types/node/util.d.ts"
+      ],
       "./node_modules/@types/connect/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/ts3.2/index.d.ts",
@@ -1153,10 +1166,6 @@
         "./node_modules/@types/keygrip/index.d.ts",
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/ts3.2/index.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts",
-        "./node_modules/@types/node/util.d.ts"
-      ],
-      "./node_modules/@types/events/index.d.ts": [
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
       ],
@@ -1490,6 +1499,10 @@
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
       ],
+      "./node_modules/@types/normalize-package-data/index.d.ts": [
+        "./node_modules/@types/node/ts3.2/util.d.ts",
+        "./node_modules/@types/node/util.d.ts"
+      ],
       "./node_modules/@types/range-parser/index.d.ts": [
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
@@ -1681,9 +1694,9 @@
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/chai-as-promised/index.d.ts",
       "./node_modules/@types/chai/index.d.ts",
+      "./node_modules/@types/color-name/index.d.ts",
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
-      "./node_modules/@types/events/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
       "./node_modules/@types/glob/index.d.ts",
@@ -1738,6 +1751,7 @@
       "./node_modules/@types/node/vm.d.ts",
       "./node_modules/@types/node/worker_threads.d.ts",
       "./node_modules/@types/node/zlib.d.ts",
+      "./node_modules/@types/normalize-package-data/index.d.ts",
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/serve-static/index.d.ts",
       "./node_modules/@types/ws/index.d.ts",
