@@ -14,7 +14,7 @@
         "url": "git+https://github.com/zimtsui/koa-ws-filter.git"
     },
     "author": "Zim",
-    "license": "MIT",
+    "license": "SEE LICENSE IN ./LICENSE",
     "bugs": {
         "url": "https://github.com/zimtsui/koa-ws-filter/issues"
     },
