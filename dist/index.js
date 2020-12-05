@@ -24,7 +24,7 @@ class KoaWsFilter {
             this.wsServer.handleUpgrade(ctx.req, ctx.req.socket, Buffer.alloc(0), resolve);
         });
     }
-    filter() {
+    protocols() {
         return async (ctx, next) => {
             if (this.isWebSocket(ctx)) {
                 ctx.state.upgrade = () => {

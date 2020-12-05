@@ -43,8 +43,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         });
     }
 
-    public filter(
-    ) {
+    public protocols() {
         return async (
             ctx: Context,
             next: () => Promise<any>,

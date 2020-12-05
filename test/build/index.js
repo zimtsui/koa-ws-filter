@@ -7,7 +7,7 @@ import { once } from 'events';
 import Bluebird from 'bluebird';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import Router from 'koa-router';
+import Router from '@koa/router';
 chai.use(chaiAsPromised);
 const { assert } = chai;
 test.serial('1', async (t) => {
@@ -25,11 +25,11 @@ test.serial('1', async (t) => {
     filter.http(router.routes());
     filter.ws(async (ctx, next) => {
         const ws = await ctx.state.upgrade();
-        await new Promise(resolve => ws.send('hello', resolve));
+        await new Promise(resolve => void ws.send('hello', resolve));
         ws.close();
         await next();
     });
-    koa.use(filter.filter());
+    koa.use(filter.protocols());
     koa.listen(3000);
     const resPromise = axios.get('http://localhost:3000');
     assert.isRejected(resPromise);
@@ -42,6 +42,6 @@ test.serial('1', async (t) => {
         once(client, 'message'),
         once(client, 'close'),
     ]);
-    assert.strictEqual(msg[0].data, 'hello');
+    assert.strictEqual(msg[0], 'hello');
 });
 //# sourceMappingURL=index.js.map

@@ -11,7 +11,7 @@ declare class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     close(code?: number, reason?: string): Promise<void>;
     private isWebSocket;
     private makeWebSocket;
-    filter(): (ctx: Context, next: () => Promise<any>) => Promise<void>;
+    protocols(): (ctx: Context, next: () => Promise<any>) => Promise<void>;
     http<NewStateT = {}, NewCustomT = {}>(f: Middleware<StateT & NewStateT, CustomT & NewCustomT>): this;
     ws<NewStateT = {}, NewCustomT = {}>(f: Middleware<StateT & NewStateT, CustomT & NewCustomT & UpgradeCustomT>): this;
 }
