@@ -49,5 +49,5 @@ class KoaWsFilter {
         return this;
     }
 }
-export { KoaWsFilter as default, KoaWsFilter, };
+export { KoaWsFilter as default, KoaWsFilter, WebSocket, };
 //# sourceMappingURL=index.js.map

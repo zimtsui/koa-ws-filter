@@ -12,6 +12,10 @@ interface Upgrade {
     (): Promise<WebSocket>;
 }
 
+interface UpgradeState {
+    upgrade: Upgrade;
+}
+
 class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     public wsServer = new WebSocket.Server({
         noServer: true,
@@ -72,9 +76,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         return this;
     }
 
-    public ws<NewStateT = {
-        upgrade: Upgrade;
-    }, NewCustomT = {}>(
+    public ws<NewStateT = UpgradeState, NewCustomT = {}>(
         f: Middleware<StateT & NewStateT, CustomT & NewCustomT>,
     ): KoaWsFilter<StateT & NewStateT, CustomT & NewCustomT> {
         this.wsMWs.push(f);
@@ -85,4 +87,6 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
 export {
     KoaWsFilter as default,
     KoaWsFilter,
+    UpgradeState,
+    WebSocket,
 };
