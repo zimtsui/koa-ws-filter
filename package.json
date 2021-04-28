@@ -6,8 +6,8 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
-        "test": "tsc -b ./test/ && ava",
-        "build": "tsc -b"
+        "test": "tsc -b ./test/src && ava",
+        "build": "tsc -b ./src"
     },
     "repository": {
         "type": "git",
@@ -34,7 +34,7 @@
     "dependencies": {
         "@types/koa-compose": "^3.2.4",
         "@types/node": "^14.14.10",
-        "@types/ws": "^6.0.3",
+        "@types/ws": "^7.4.2",
         "koa": "^2.8.2",
         "koa-compose": "^4.1.0",
         "ws": "^7.1.2"
