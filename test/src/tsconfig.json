@@ -10,7 +10,7 @@
     ],
     "references": [
         {
-            "path": "../../src"
+            "path": "../../src/tsconfig.json"
         }
     ]
 }

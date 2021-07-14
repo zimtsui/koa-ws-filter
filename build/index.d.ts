@@ -1,4 +1,4 @@
-import WebSocket from 'ws';
+import WebSocket = require('ws');
 import { Middleware, DefaultContext, DefaultState, ParameterizedContext } from 'koa';
 interface Upgrade {
     (): Promise<WebSocket>;
@@ -10,7 +10,7 @@ declare class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     wsServer: WebSocket.Server;
     private httpMWs;
     private wsMWs;
-    close(code?: number, reason?: string): Promise<void>;
+    closeAsync(code?: number, reason?: string): Promise<void>;
     private isWebSocket;
     private makeWebSocket;
     protocols(): (ctx: ParameterizedContext<StateT & {

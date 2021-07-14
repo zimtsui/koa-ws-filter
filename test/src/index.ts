@@ -1,13 +1,13 @@
-import Koa from 'koa';
-import KoaWsFilter from '../../dist/index';
-import WebSocket from 'ws';
+import Koa = require('koa');
+import KoaWsFilter from '../..';
+import WebSocket = require('ws');
 import test from 'ava';
 import axios from 'axios';
 import { once } from 'events';
-import Bluebird from 'bluebird';
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import Router from '@koa/router';
+import Bluebird = require('bluebird');
+import chai = require('chai');
+import chaiAsPromised = require('chai-as-promised');
+import Router = require('@koa/router');
 chai.use(chaiAsPromised);
 const { assert } = chai;
 

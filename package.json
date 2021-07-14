@@ -2,12 +2,11 @@
     "name": "koa-ws-filter",
     "version": "0.0.1",
     "description": "",
-    "type": "module",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./build/index.js",
+    "types": "./build/index.d.ts",
     "scripts": {
-        "test": "tsc -b ./test/src && ava",
-        "build": "tsc -b ./src"
+        "test": "tsc -b ./test/src/tsconfig.json && ava",
+        "build": "tsc -b ./src/tsconfig.json"
     },
     "repository": {
         "type": "git",

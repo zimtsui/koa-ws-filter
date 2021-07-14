@@ -1,5 +1,5 @@
-import WebSocket from 'ws';
-import koaCompose from 'koa-compose';
+import WebSocket = require('ws');
+import koaCompose = require('koa-compose');
 import { once } from 'events';
 import {
     Middleware,
@@ -24,7 +24,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     private httpMWs: Middleware<any, any>[] = [];
     private wsMWs: Middleware<any, any>[] = [];
 
-    public async close(code?: number, reason?: string) {
+    public async closeAsync(code?: number, reason?: string) {
         await Promise.all(
             [...this.wsServer.clients].map(client => {
                 client.close(code, reason);
@@ -34,7 +34,10 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     }
 
     private isWebSocket(ctx: ParameterizedContext<StateT, CustomT>): boolean {
-        return ctx.req.headers.upgrade === 'websocket';
+        return !!ctx.req.headers.upgrade
+            ?.split(',')
+            .map(protocol => protocol.trim())
+            .includes('websocket');
     }
 
     private async makeWebSocket(ctx: ParameterizedContext<StateT, CustomT>): Promise<WebSocket> {

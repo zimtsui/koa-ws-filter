@@ -1,6 +1,10 @@
-import WebSocket from 'ws';
-import koaCompose from 'koa-compose';
-import { once } from 'events';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.WebSocket = exports.KoaWsFilter = exports.default = void 0;
+const WebSocket = require("ws");
+exports.WebSocket = WebSocket;
+const koaCompose = require("koa-compose");
+const events_1 = require("events");
 class KoaWsFilter {
     constructor() {
         this.wsServer = new WebSocket.Server({
@@ -10,14 +14,17 @@ class KoaWsFilter {
         this.httpMWs = [];
         this.wsMWs = [];
     }
-    async close(code, reason) {
+    async closeAsync(code, reason) {
         await Promise.all([...this.wsServer.clients].map(client => {
             client.close(code, reason);
-            return once(client, 'close');
+            return events_1.once(client, 'close');
         }));
     }
     isWebSocket(ctx) {
-        return ctx.req.headers.upgrade === 'websocket';
+        return !!ctx.req.headers.upgrade
+            ?.split(',')
+            .map(protocol => protocol.trim())
+            .includes('websocket');
     }
     async makeWebSocket(ctx) {
         return new Promise(resolve => {
@@ -49,5 +56,6 @@ class KoaWsFilter {
         return this;
     }
 }
-export { KoaWsFilter as default, KoaWsFilter, WebSocket, };
+exports.default = KoaWsFilter;
+exports.KoaWsFilter = KoaWsFilter;
 //# sourceMappingURL=index.js.map

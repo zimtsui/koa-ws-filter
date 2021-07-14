@@ -1,18 +1,20 @@
-import Koa from 'koa';
-import KoaWsFilter from '../../dist/index';
-import WebSocket from 'ws';
-import test from 'ava';
-import axios from 'axios';
-import { once } from 'events';
-import Bluebird from 'bluebird';
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import Router from '@koa/router';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Koa = require("koa");
+const __1 = require("../..");
+const WebSocket = require("ws");
+const ava_1 = require("ava");
+const axios_1 = require("axios");
+const events_1 = require("events");
+const Bluebird = require("bluebird");
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
+const Router = require("@koa/router");
 chai.use(chaiAsPromised);
 const { assert } = chai;
-test.serial('1', async (t) => {
+ava_1.default.serial('1', async (t) => {
     const koa = new Koa();
-    const filter = new KoaWsFilter();
+    const filter = new __1.default();
     const router = new Router();
     router.get('/', async (ctx, next) => {
         ctx.status = 404;
@@ -31,7 +33,7 @@ test.serial('1', async (t) => {
     });
     koa.use(filter.protocols());
     koa.listen(3000);
-    const resPromise = axios.get('http://localhost:3000');
+    const resPromise = axios_1.default.get('http://localhost:3000');
     assert.isRejected(resPromise);
     const error = await resPromise.catch(e => e);
     assert.strictEqual(error.response.data, '404 NOT FOUND');
@@ -39,8 +41,8 @@ test.serial('1', async (t) => {
     const client = new WebSocket('ws://localhost:3000');
     const msg = await Bluebird.any([
         Bluebird.delay(3000),
-        once(client, 'message'),
-        once(client, 'close'),
+        events_1.once(client, 'message'),
+        events_1.once(client, 'close'),
     ]);
     assert.strictEqual(msg[0], 'hello');
 });
