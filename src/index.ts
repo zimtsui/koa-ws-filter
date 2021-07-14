@@ -8,15 +8,15 @@ import {
     ParameterizedContext,
 } from 'koa';
 
-interface Upgrade {
+export interface Upgrade {
     (): Promise<WebSocket>;
 }
 
-interface UpgradeState {
+export type Upgraded<CustomT> = CustomT & {
     upgrade: Upgrade;
 }
 
-class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
+export class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
     public wsServer = new WebSocket.Server({
         noServer: true,
         clientTracking: true,
@@ -33,7 +33,7 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         );
     }
 
-    private isWebSocket(ctx: ParameterizedContext<StateT, CustomT>): boolean {
+    private static isWebSocket(ctx: ParameterizedContext): boolean {
         return !!ctx.req.headers.upgrade
             ?.split(',')
             .map(protocol => protocol.trim())
@@ -51,18 +51,17 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         });
     }
 
-    public protocols() {
+    public protocols<NewStateT = {}, NewCustomT = {}>() {
         return async (
-            ctx: ParameterizedContext<StateT & {
-                upgrade: Upgrade;
-            }, CustomT>,
+            ctx: ParameterizedContext<StateT & NewStateT, CustomT & NewCustomT>,
             next: () => Promise<void>,
         ) => {
-            if (this.isWebSocket(ctx)) {
-                ctx.state.upgrade = () => {
-                    ctx.respond = false;
-                    return this.makeWebSocket(ctx);
-                }
+            if (KoaWsFilter.isWebSocket(ctx)) {
+                (<ParameterizedContext<StateT & NewStateT, Upgraded<CustomT> & NewCustomT>>ctx)
+                    .upgrade = () => {
+                        ctx.respond = false;
+                        return this.makeWebSocket(ctx);
+                    }
                 const f = koaCompose(this.wsMWs);
                 await f(ctx, next);
             } else {
@@ -79,17 +78,10 @@ class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         return this;
     }
 
-    public ws<NewStateT = UpgradeState, NewCustomT = {}>(
-        f: Middleware<StateT & NewStateT, CustomT & NewCustomT>,
+    public ws<NewStateT = {}, NewCustomT = {}>(
+        f: Middleware<StateT & NewStateT, Upgraded<CustomT> & NewCustomT>,
     ): KoaWsFilter<StateT & NewStateT, CustomT & NewCustomT> {
         this.wsMWs.push(f);
         return this;
     }
 }
-
-export {
-    KoaWsFilter as default,
-    KoaWsFilter,
-    UpgradeState,
-    WebSocket,
-};

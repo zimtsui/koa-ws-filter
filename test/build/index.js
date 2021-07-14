@@ -14,7 +14,7 @@ chai.use(chaiAsPromised);
 const { assert } = chai;
 ava_1.default.serial('1', async (t) => {
     const koa = new Koa();
-    const filter = new __1.default();
+    const filter = new __1.KoaWsFilter();
     const router = new Router();
     router.get('/', async (ctx, next) => {
         ctx.status = 404;
@@ -26,7 +26,7 @@ ava_1.default.serial('1', async (t) => {
     });
     filter.http(router.routes());
     filter.ws(async (ctx, next) => {
-        const ws = await ctx.state.upgrade();
+        const ws = await ctx.upgrade();
         await new Promise(resolve => void ws.send('hello', resolve));
         ws.close();
         await next();

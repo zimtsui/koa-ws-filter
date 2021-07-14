@@ -1,5 +1,5 @@
 import Koa = require('koa');
-import KoaWsFilter from '../..';
+import { KoaWsFilter } from '../..';
 import WebSocket = require('ws');
 import test from 'ava';
 import axios from 'axios';
@@ -29,7 +29,7 @@ test.serial('1', async t => {
     filter.http(router.routes());
 
     filter.ws(async (ctx, next) => {
-        const ws = await ctx.state.upgrade();
+        const ws = await ctx.upgrade();
         await new Promise(resolve => void ws.send('hello', resolve));
         ws.close();
         await next();

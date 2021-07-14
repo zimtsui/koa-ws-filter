@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebSocket = exports.KoaWsFilter = exports.default = void 0;
+exports.KoaWsFilter = void 0;
 const WebSocket = require("ws");
-exports.WebSocket = WebSocket;
 const koaCompose = require("koa-compose");
 const events_1 = require("events");
 class KoaWsFilter {
@@ -20,7 +19,7 @@ class KoaWsFilter {
             return events_1.once(client, 'close');
         }));
     }
-    isWebSocket(ctx) {
+    static isWebSocket(ctx) {
         return !!ctx.req.headers.upgrade
             ?.split(',')
             .map(protocol => protocol.trim())
@@ -33,8 +32,9 @@ class KoaWsFilter {
     }
     protocols() {
         return async (ctx, next) => {
-            if (this.isWebSocket(ctx)) {
-                ctx.state.upgrade = () => {
+            if (KoaWsFilter.isWebSocket(ctx)) {
+                ctx
+                    .upgrade = () => {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 };
@@ -56,6 +56,5 @@ class KoaWsFilter {
         return this;
     }
 }
-exports.default = KoaWsFilter;
 exports.KoaWsFilter = KoaWsFilter;
 //# sourceMappingURL=index.js.map
