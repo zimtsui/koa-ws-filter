@@ -3,7 +3,7 @@ import { Middleware, DefaultContext, DefaultState } from 'koa';
 export interface Upgrade {
     (): Promise<WebSocket>;
 }
-export declare type Upgraded<CustomT> = CustomT & {
+export declare type Upgraded<ContextT> = ContextT & {
     upgrade: Upgrade;
 };
 export declare class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {

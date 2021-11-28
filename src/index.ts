@@ -11,7 +11,7 @@ export interface Upgrade {
     (): Promise<WebSocket>;
 }
 
-export type Upgraded<CustomT> = CustomT & {
+export type Upgraded<ContextT> = ContextT & {
     upgrade: Upgrade;
 }
 
