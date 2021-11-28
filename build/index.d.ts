@@ -1,19 +1,19 @@
 import WebSocket = require('ws');
-import { Middleware, DefaultContext, DefaultState, ParameterizedContext } from 'koa';
+import { Middleware, DefaultContext, DefaultState } from 'koa';
 export interface Upgrade {
     (): Promise<WebSocket>;
 }
 export declare type Upgraded<CustomT> = CustomT & {
     upgrade: Upgrade;
 };
-export declare class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
+export declare class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
     wsServer: WebSocket.Server;
-    private httpMWs;
-    private wsMWs;
+    private httpMiddlewares;
+    private wsMiddlewares;
     closeAsync(code?: number, reason?: string): Promise<void>;
     private static isWebSocket;
     private makeWebSocket;
-    protocols<NewStateT = {}, NewCustomT = {}>(): (ctx: ParameterizedContext<StateT & NewStateT, CustomT & NewCustomT>, next: () => Promise<void>) => Promise<void>;
-    http<NewStateT = {}, NewCustomT = {}>(f: Middleware<StateT & NewStateT, CustomT & NewCustomT>): KoaWsFilter<StateT & NewStateT, CustomT & NewCustomT>;
-    ws<NewStateT = {}, NewCustomT = {}>(f: Middleware<StateT & NewStateT, Upgraded<CustomT> & NewCustomT>): KoaWsFilter<StateT & NewStateT, CustomT & NewCustomT>;
+    protocols(): Middleware<StateT, Upgraded<ContextT>>;
+    http<NewStateT = {}, NewContextT = {}>(middleware: Middleware<StateT & NewStateT, ContextT & NewContextT>): KoaWsFilter<StateT & NewStateT, ContextT & NewContextT>;
+    ws<NewStateT = {}, NewContextT = {}>(middleware: Middleware<StateT & NewStateT, Upgraded<ContextT> & NewContextT>): KoaWsFilter<StateT & NewStateT, ContextT & NewContextT>;
 }

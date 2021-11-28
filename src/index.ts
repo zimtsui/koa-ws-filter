@@ -5,7 +5,6 @@ import {
     Middleware,
     DefaultContext,
     DefaultState,
-    ParameterizedContext,
 } from 'koa';
 
 export interface Upgrade {
@@ -16,13 +15,13 @@ export type Upgraded<CustomT> = CustomT & {
     upgrade: Upgrade;
 }
 
-export class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
+export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
     public wsServer = new WebSocket.Server({
         noServer: true,
         clientTracking: true,
     });
-    private httpMWs: Middleware<any, any>[] = [];
-    private wsMWs: Middleware<any, any>[] = [];
+    private httpMiddlewares: Middleware<any, any>[] = [];
+    private wsMiddlewares: Middleware<any, any>[] = [];
 
     public async closeAsync(code?: number, reason?: string) {
         await Promise.all(
@@ -33,14 +32,15 @@ export class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         );
     }
 
-    private static isWebSocket(ctx: ParameterizedContext): boolean {
+    private static isWebSocket(ctx: Parameters<Middleware<{}, {}>>[0]): boolean {
+        if (typeof ctx.req.headers.upgrade === 'undefined') return false;
         return !!ctx.req.headers.upgrade
-            ?.split(',')
+            .split(',')
             .map(protocol => protocol.trim())
             .includes('websocket');
     }
 
-    private async makeWebSocket(ctx: ParameterizedContext<StateT, CustomT>): Promise<WebSocket> {
+    private async makeWebSocket(ctx: Parameters<Middleware<{}, {}>>[0]): Promise<WebSocket> {
         return new Promise(resolve => {
             this.wsServer.handleUpgrade(
                 ctx.req,
@@ -51,37 +51,33 @@ export class KoaWsFilter<StateT = DefaultState, CustomT = DefaultContext> {
         });
     }
 
-    public protocols<NewStateT = {}, NewCustomT = {}>() {
-        return async (
-            ctx: ParameterizedContext<StateT & NewStateT, CustomT & NewCustomT>,
-            next: () => Promise<void>,
-        ) => {
+    public protocols(): Middleware<StateT, Upgraded<ContextT>> {
+        return async (ctx, next: () => Promise<void>) => {
             if (KoaWsFilter.isWebSocket(ctx)) {
-                (<ParameterizedContext<StateT & NewStateT, Upgraded<CustomT> & NewCustomT>>ctx)
-                    .upgrade = () => {
-                        ctx.respond = false;
-                        return this.makeWebSocket(ctx);
-                    }
-                const f = koaCompose(this.wsMWs);
-                await f(ctx, next);
+                ctx.upgrade = () => {
+                    ctx.respond = false;
+                    return this.makeWebSocket(ctx);
+                }
+                const composed = koaCompose(this.wsMiddlewares);
+                await composed(ctx, next);
             } else {
-                const f = koaCompose(this.httpMWs);
-                await f(ctx, next);
+                const composed = koaCompose(this.httpMiddlewares);
+                await composed(ctx, next);
             }
         }
     }
 
-    public http<NewStateT = {}, NewCustomT = {}>(
-        f: Middleware<StateT & NewStateT, CustomT & NewCustomT>,
-    ): KoaWsFilter<StateT & NewStateT, CustomT & NewCustomT> {
-        this.httpMWs.push(f);
+    public http<NewStateT = {}, NewContextT = {}>(
+        middleware: Middleware<StateT & NewStateT, ContextT & NewContextT>,
+    ): KoaWsFilter<StateT & NewStateT, ContextT & NewContextT> {
+        this.httpMiddlewares.push(middleware);
         return this;
     }
 
-    public ws<NewStateT = {}, NewCustomT = {}>(
-        f: Middleware<StateT & NewStateT, Upgraded<CustomT> & NewCustomT>,
-    ): KoaWsFilter<StateT & NewStateT, CustomT & NewCustomT> {
-        this.wsMWs.push(f);
+    public ws<NewStateT = {}, NewContextT = {}>(
+        middleware: Middleware<StateT & NewStateT, Upgraded<ContextT> & NewContextT>,
+    ): KoaWsFilter<StateT & NewStateT, ContextT & NewContextT> {
+        this.wsMiddlewares.push(middleware);
         return this;
     }
 }

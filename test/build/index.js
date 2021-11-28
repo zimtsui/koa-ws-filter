@@ -41,8 +41,8 @@ ava_1.default.serial('1', async (t) => {
     const client = new WebSocket('ws://localhost:3000');
     const msg = await Bluebird.any([
         Bluebird.delay(3000),
-        events_1.once(client, 'message'),
-        events_1.once(client, 'close'),
+        (0, events_1.once)(client, 'message'),
+        (0, events_1.once)(client, 'close'),
     ]);
     assert.strictEqual(msg[0], 'hello');
 });

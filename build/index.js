@@ -10,18 +10,20 @@ class KoaWsFilter {
             noServer: true,
             clientTracking: true,
         });
-        this.httpMWs = [];
-        this.wsMWs = [];
+        this.httpMiddlewares = [];
+        this.wsMiddlewares = [];
     }
     async closeAsync(code, reason) {
         await Promise.all([...this.wsServer.clients].map(client => {
             client.close(code, reason);
-            return events_1.once(client, 'close');
+            return (0, events_1.once)(client, 'close');
         }));
     }
     static isWebSocket(ctx) {
+        if (typeof ctx.req.headers.upgrade === 'undefined')
+            return false;
         return !!ctx.req.headers.upgrade
-            ?.split(',')
+            .split(',')
             .map(protocol => protocol.trim())
             .includes('websocket');
     }
@@ -33,26 +35,25 @@ class KoaWsFilter {
     protocols() {
         return async (ctx, next) => {
             if (KoaWsFilter.isWebSocket(ctx)) {
-                ctx
-                    .upgrade = () => {
+                ctx.upgrade = () => {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 };
-                const f = koaCompose(this.wsMWs);
-                await f(ctx, next);
+                const composed = koaCompose(this.wsMiddlewares);
+                await composed(ctx, next);
             }
             else {
-                const f = koaCompose(this.httpMWs);
-                await f(ctx, next);
+                const composed = koaCompose(this.httpMiddlewares);
+                await composed(ctx, next);
             }
         };
     }
-    http(f) {
-        this.httpMWs.push(f);
+    http(middleware) {
+        this.httpMiddlewares.push(middleware);
         return this;
     }
-    ws(f) {
-        this.wsMWs.push(f);
+    ws(middleware) {
+        this.wsMiddlewares.push(middleware);
         return this;
     }
 }
