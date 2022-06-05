@@ -1,0 +1,9 @@
+# nodejs
+/node_modules
+
+# source
+/src
+
+# test
+/test
+/ava.config.js

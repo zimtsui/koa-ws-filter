@@ -1,5 +1,5 @@
 {
-    "name": "koa-ws-filter",
+    "name": "@zimtsui/koa-ws-filter",
     "version": "0.0.1",
     "description": "",
     "main": "./build/index.js",
