@@ -5,14 +5,11 @@ import {
     Middleware,
     DefaultContext,
     DefaultState,
+    Context,
 } from 'koa';
 
-export interface Upgrade {
-    (): Promise<WebSocket>;
-}
-
 export type Upgraded<ContextT> = ContextT & {
-    upgrade: Upgrade;
+    upgrade: () => Promise<WebSocket>;
 }
 
 export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
@@ -20,10 +17,10 @@ export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
         noServer: true,
         clientTracking: true,
     });
-    private httpMiddlewares: Middleware<any, any>[] = [];
-    private wsMiddlewares: Middleware<any, any>[] = [];
+    private httpMws: Middleware<any, any>[] = [];
+    private wsMws: Middleware<any, any>[] = [];
 
-    public async closeAsync(code?: number, reason?: string) {
+    public async close(code?: number, reason?: string) {
         await Promise.all(
             [...this.wsServer.clients].map(client => {
                 client.close(code, reason);
@@ -32,7 +29,7 @@ export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
         );
     }
 
-    private static isWebSocket(ctx: Parameters<Middleware<{}, {}>>[0]): boolean {
+    private static isWebSocket(ctx: Context): boolean {
         if (typeof ctx.req.headers.upgrade === 'undefined') return false;
         return !!ctx.req.headers.upgrade
             .split(',')
@@ -40,7 +37,7 @@ export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
             .includes('websocket');
     }
 
-    private async makeWebSocket(ctx: Parameters<Middleware<{}, {}>>[0]): Promise<WebSocket> {
+    private async makeWebSocket(ctx: Context): Promise<WebSocket> {
         return new Promise(resolve => {
             this.wsServer.handleUpgrade(
                 ctx.req,
@@ -58,10 +55,10 @@ export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 }
-                const composed = koaCompose(this.wsMiddlewares);
+                const composed = koaCompose(this.wsMws);
                 await composed(ctx, next);
             } else {
-                const composed = koaCompose(this.httpMiddlewares);
+                const composed = koaCompose(this.httpMws);
                 await composed(ctx, next);
             }
         }
@@ -70,14 +67,14 @@ export class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
     public http<NewStateT = {}, NewContextT = {}>(
         middleware: Middleware<StateT & NewStateT, ContextT & NewContextT>,
     ): KoaWsFilter<StateT & NewStateT, ContextT & NewContextT> {
-        this.httpMiddlewares.push(middleware);
+        this.httpMws.push(middleware);
         return this;
     }
 
     public ws<NewStateT = {}, NewContextT = {}>(
         middleware: Middleware<StateT & NewStateT, Upgraded<ContextT> & NewContextT>,
     ): KoaWsFilter<StateT & NewStateT, ContextT & NewContextT> {
-        this.wsMiddlewares.push(middleware);
+        this.wsMws.push(middleware);
         return this;
     }
 }

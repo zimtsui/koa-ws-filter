@@ -1,16 +1,13 @@
 import WebSocket = require('ws');
 import { Middleware, DefaultContext, DefaultState } from 'koa';
-export interface Upgrade {
-    (): Promise<WebSocket>;
-}
-export declare type Upgraded<ContextT> = ContextT & {
-    upgrade: Upgrade;
+export type Upgraded<ContextT> = ContextT & {
+    upgrade: () => Promise<WebSocket>;
 };
 export declare class KoaWsFilter<StateT = DefaultState, ContextT = DefaultContext> {
-    wsServer: WebSocket.Server;
-    private httpMiddlewares;
-    private wsMiddlewares;
-    closeAsync(code?: number, reason?: string): Promise<void>;
+    wsServer: WebSocket.Server<WebSocket.WebSocket>;
+    private httpMws;
+    private wsMws;
+    close(code?: number, reason?: string): Promise<void>;
     private static isWebSocket;
     private makeWebSocket;
     protocols(): Middleware<StateT, Upgraded<ContextT>>;

@@ -36,11 +36,11 @@
     "dependencies": {
         "@types/koa-compose": "^3.2.4",
         "@types/node": "^16.11.38",
-        "@types/ws": "^7.4.7",
-        "koa-compose": "^4.1.0",
-        "ws": "^7.5.6"
+        "@types/ws": "^8.5.4",
+        "koa-compose": "^4.1.0"
     },
     "peerDependencies": {
-        "koa": "^2.8.2"
+        "koa": "^2.8.2",
+        "ws": "^8.12.0"
     }
 }

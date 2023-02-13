@@ -10,10 +10,10 @@ class KoaWsFilter {
             noServer: true,
             clientTracking: true,
         });
-        this.httpMiddlewares = [];
-        this.wsMiddlewares = [];
+        this.httpMws = [];
+        this.wsMws = [];
     }
-    async closeAsync(code, reason) {
+    async close(code, reason) {
         await Promise.all([...this.wsServer.clients].map(client => {
             client.close(code, reason);
             return (0, events_1.once)(client, 'close');
@@ -39,21 +39,21 @@ class KoaWsFilter {
                     ctx.respond = false;
                     return this.makeWebSocket(ctx);
                 };
-                const composed = koaCompose(this.wsMiddlewares);
+                const composed = koaCompose(this.wsMws);
                 await composed(ctx, next);
             }
             else {
-                const composed = koaCompose(this.httpMiddlewares);
+                const composed = koaCompose(this.httpMws);
                 await composed(ctx, next);
             }
         };
     }
     http(middleware) {
-        this.httpMiddlewares.push(middleware);
+        this.httpMws.push(middleware);
         return this;
     }
     ws(middleware) {
-        this.wsMiddlewares.push(middleware);
+        this.wsMws.push(middleware);
         return this;
     }
 }
