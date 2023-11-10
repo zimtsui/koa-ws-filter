@@ -28,7 +28,7 @@
         "@types/chai-as-promised": "^7.1.2",
         "@types/koa__router": "^8.0.3",
         "ava": "^4.3.0",
-        "axios": "^0.21.2",
+        "axios": "^1.6.0",
         "bluebird": "^3.7.2",
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1"
